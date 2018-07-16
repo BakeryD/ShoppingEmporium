@@ -19,7 +19,7 @@ Begin Transaction;
 
 CREATE TABLE Category 
 (
-	id				integer					identity(1,1), 
+	id				integer				identity(1,1), 
 	name			varchar(30),
 
 	Constraint pk_category Primary Key (id)
@@ -33,6 +33,7 @@ CREATE TABLE Product
 	category_id		integer				Not Null,
 	Is_BestSeller	bit,
 	cost			money,				
+	image_name		varchar(45),
 
 	Constraint pk_product Primary Key (id),
 	Constraint fk_product_category Foreign Key (category_id) References Category (id)
@@ -41,19 +42,39 @@ CREATE TABLE Product
 
 CREATE TABLE Customer
 (
-	id int identity(1,1), 
-	
+	id				integer				identity(1,1), 
+	username		varchar(45)			Not Null,
+	email			varchar(100),
+	password		varchar(25)			Not Null,
+
+	Constraint pk_customer Primary Key (id)
 );
 
 CREATE TABLE Sale
 (
-	id int identity(1,1), 
-	
+	id				integer					identity(1,1), 
+	product_id		integer					Not Null,
+	dateofsale		datetime			Not Null	default Getdate(),
+	quantity		integer				Not Null	default 1,
+
+	Constraint pk_sale	Primary Key	(id),
+	Constraint fk_sale_product	Foreign Key (product_id) references product (id)
 );
 
 CREATE TABLE Recent_Purchases 
 (
+	customer_id		integer					Not Null,
+	sale_id			integer					Not Null,
 
+	Constraint	pk_recent_purchases Primary Key (customer_id,sale_id),
+	Constraint	fk_recent_purchases_customer	Foreign Key	(customer_id)	references Customer (id),	
+	Constraint	fk_recent_purchases_sale	Foreign Key	(sale_id)	references Sale (id)	
 );
+
+Insert Into Category Values ('Sport' );
+Insert Into Category Values ('Appliances' );
+Insert Into Category Values ('Grocery' );
+Insert Into Category Values ('Wine/Beer' );
+Insert Into Category Values ('Clothing' );
 
 Commit Transaction;
