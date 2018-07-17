@@ -27,13 +27,13 @@ namespace ShoppingEmporium
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             services.AddDistributedMemoryCache();
             services.AddSession();
-            services.AddTransient<IProductDAL>(dal => new ProductSqlDAL("Data Source=.\\sqlexpress;Initial Catalog=ShoppingEmp;Integrated Security=True"/*ConnectionStrings["ShoppingEmpDB"]*/));
+            services.AddTransient<IProductDAL>(dal => new ProductSqlDAL(Configuration["ConnectionStrings:ShoppingEmpDB"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

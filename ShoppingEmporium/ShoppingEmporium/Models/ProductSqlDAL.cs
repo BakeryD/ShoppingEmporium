@@ -15,7 +15,27 @@ namespace ShoppingEmporium.Models
         }
         public IList<Product> GetAllProducts()
         {
-            throw new NotImplementedException();
+            string query = "Select * From Product";
+            var products = new List<Product>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        products.Add(MapRowToProduct(reader));
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            return products;
         }
 
         public IList<Product> GetProducctsByCategory(string cat)
@@ -30,7 +50,33 @@ namespace ShoppingEmporium.Models
 
         public Product MapRowToProduct(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            return new Product()
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                Name = Convert.ToString(reader["name"]),
+                Description = Convert.ToString(reader["description"]),
+                Cost = Convert.ToInt32(reader["price"]),
+                ImageName = Convert.ToString(reader["image_name"])
+
+            };
         }
+
+        public Product IsTopSeller(Product p)
+        {
+            string sql=
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+        }
+      
     }
 }

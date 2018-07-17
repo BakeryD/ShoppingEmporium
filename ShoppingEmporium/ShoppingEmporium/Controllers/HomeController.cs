@@ -10,10 +10,30 @@ namespace ShoppingEmporium.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductDAL dal;
+        public HomeController (IProductDAL dal)
+        {
+            this.dal = dal;
+        }
+
         public IActionResult Index()
         {
+            var products = dal.GetAllProducts();
+            
+            return View(products);
+        }
+
+        public IActionResult Detail()
+        {
+
             return View();
         }
+
+
+
+
+
+
 
         public IActionResult About()
         {

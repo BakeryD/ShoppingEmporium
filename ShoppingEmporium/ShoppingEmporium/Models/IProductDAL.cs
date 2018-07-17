@@ -12,5 +12,6 @@ namespace ShoppingEmporium.Models
         Product GetProduct(int id);
         Product MapRowToProduct(SqlDataReader reader);
         IList<Product> GetProducctsByCategory(string cat);
+        Product IsTopSeller(Product p);
     }
 }
