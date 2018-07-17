@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ShoppingEmporium.Models;
 
 namespace ShoppingEmporium
 {
@@ -32,6 +33,7 @@ namespace ShoppingEmporium
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddTransient<IProductDAL>(dal => new ProductSqlDAL("Data Source=.\\sqlexpress;Initial Catalog=ShoppingEmp;Integrated Security=True"/*ConnectionStrings["ShoppingEmpDB"]*/));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -46,7 +48,7 @@ namespace ShoppingEmporium
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();

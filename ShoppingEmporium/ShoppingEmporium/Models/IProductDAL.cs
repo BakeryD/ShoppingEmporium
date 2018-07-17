@@ -11,5 +11,6 @@ namespace ShoppingEmporium.Models
         IList<Product> GetAllProducts();
         Product GetProduct(int id);
         Product MapRowToProduct(SqlDataReader reader);
+        IList<Product> GetProducctsByCategory(string cat);
     }
 }
