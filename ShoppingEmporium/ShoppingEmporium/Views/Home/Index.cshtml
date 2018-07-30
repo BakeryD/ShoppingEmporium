@@ -3,3 +3,29 @@
     ViewData["Title"] = "Home Page";
 }
 <h1 id="homepage-header">Welcome to BD's Shopping Emporium!</h1>
+<br />
+<h3 id="category-search">View By Category</h3>
+
+@foreach (var cat in ViewBag.categories)
+{
+    <a style="margin-left:1rem;" asp-action="ViewByCategory" asp-controller="home" asp-route-cat="@((string)cat)">@((string)cat)</a>
+}
+<br />
+<br />
+@*<form asp-action="ViewByCategory" asp-controller="home" method="get">
+      <input type="radio" value="Sport" />
+        <select asp-items="ViewBag.categories"></select>
+        <button type="submit">Search</button>
+
+
+    </form>*@
+<div class="Index-page">
+    @foreach (var product in Model)
+    {
+        <div class="product-tile">
+            <a asp-action="Detail" asp-controller="home" asp-route-id="@product.Id"><img class="product-image" src="~/images/@product.ImageName" /></a>
+            <p><strong>@product.Name</strong></p>
+            <p>@product.Description</p>
+        </div>
+    }
+</div>

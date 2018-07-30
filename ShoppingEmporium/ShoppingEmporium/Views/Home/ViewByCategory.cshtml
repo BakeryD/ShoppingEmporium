@@ -1,0 +1,15 @@
+﻿@model IList<Product>
+@{
+    ViewData["Title"] = (string)ViewBag.category;
+}
+
+<h2>@((string)ViewBag.category)</h2>
+
+    @foreach (var product in Model)
+    {
+        <div class="product-tile">
+            <a asp-action="Detail" asp-controller="home" asp-route-id="@product.Id"><img class="product-image" src="~/images/@product.ImageName" /></a>
+            <p><strong>@product.Name</strong></p>
+            <p>@product.Description</p>
+        </div>
+    }

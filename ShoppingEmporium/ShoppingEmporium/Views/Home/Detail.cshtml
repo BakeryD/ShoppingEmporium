@@ -1,0 +1,14 @@
+﻿@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<img class="detail-image" src="~/images/@Model.ImageName" />
+@if (Model.IsBestSeller)
+{
+    <img src="~/images/best-seller.png" />
+}
+<h4><small>@Model.Description</small></h4>
+<h4  class="text-info"><strong>Price :</strong>@Model.Cost.ToString("C2")</h4>
+

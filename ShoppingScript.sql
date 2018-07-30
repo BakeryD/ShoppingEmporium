@@ -31,7 +31,6 @@ CREATE TABLE Product
 	name			varchar(max)		Not Null,
 	description		varchar(max)		Not Null	default 'No description is available for this product',
 	category_id		integer				Not Null,
-	Is_BestSeller	bit					Not Null	default 0,
 	cost			money				Not Null,				
 	image_name		varchar(45),
 
@@ -81,7 +80,7 @@ Insert Into Category(id,name) Values (6, 'Home');
 Insert Into Category(id,name) Values (7,'Electronics');
 Set identity_insert Category Off;
 
-/*id, name, description, category_id, Is_BestSeller, cost, image_name				  */
+/*id, name, description, category_id, Is_BestSeller, cost, image_name */
 
 Insert Into Product (name,category_id,cost,image_name) Values ('Spalding Basketball',1,23.99,'basketball.png');
 Insert Into Product (name,category_id,cost,image_name) Values ('Assorted Skateboard Decks',1,34.99,'rainbow-skatedecks.png');
@@ -113,17 +112,35 @@ Insert Into Sale (product_id, quantity)	Values (1, @cnt)			/*  DO SOMETHING */
    SET @cnt = @cnt + 1;
 END;
 
+--		  TRIGGER VS. MODEL
+DECLARE @product INT = 1;
+
 --Check total sales of item
 Declare @totalSales INT; 
 Set @totalSales=(select Count(sale.id) 
 from Sale
 Inner Join Product on Product.id=Sale.product_id 
-where product_id=@product);
+where product_id= @product);
 
 
 --Evaluate bool value to see if item is a top seller or not
 Declare @bool bit;
 set @bool= Case when (@totalSales > 100) then 1 else 0 end;
+
+Print @bool;
+
+
+DECLARE @product INT = 1;
+Declare @totalSales INT; 
+            Set @totalSales = (select Count(sale.id)
+            from Sale
+            Inner Join Product on Product.id = Sale.product_id
+            where product_id = @product);
+            Declare @bool bit;
+            set @bool = Case when(@totalSales > 100) then 1 else 0 end;
+            Print @bool;
+
+
 
 -- set value
 Update Product 

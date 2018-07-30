@@ -35,3 +35,21 @@ body {
         display: none;
     }
 }
+
+/****     Home Page      ****/
+
+.Index-page {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:space-between;
+}
+
+.product-image {
+    height: 10rem;
+}
+
+/****     Detail Page      ****/
+
+.detail-image {
+    height: 18rem;
+}
